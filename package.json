@@ -6,10 +6,13 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "萌新大佬 Kevin 黑暗森林",
   "license": "MIT",
   "files": [
     "server/dist/server/src"
   ],
-  "types": "server/dist/server/src/App.d.ts"
+  "types": "server/dist/server/src/App.d.ts",
+  "devDependencies": {
+    "mathjs": "^14.0.1"
+  }
 }

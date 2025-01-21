@@ -113,10 +113,10 @@ export function relativeToAbsolute( // 计算子节点的绝对坐标及旋转
       [2 * (x * y + w * z), 1 - 2 * (x * x + z * z), 2 * (y * z - w * x)],
       [2 * (x * z - w * y), 2 * (y * z + w * x), 1 - 2 * (x * x + y * y)]
   ]);
-  var Newpos = M.multiply(math.matrix([cpos.x, cpos.y, cpos.z]));
+  var Newpos = math.multiply(M, math.matrix([cpos.x, cpos.y, cpos.z]));
 
   var theta = 2 * Math.acos(cqua.w);
-  var NQ = M.multiply(math.matrix([
+  var NQ = math.multiply(M, math.matrix([
       cqua.x / Math.sin(theta * 0.5) * theta,
       cqua.y / Math.sin(theta * 0.5) * theta,
       cqua.z / Math.sin(theta * 0.5) * theta

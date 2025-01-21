@@ -469,7 +469,7 @@ declare class UiImage extends UiRenderable {
     /**
      * 图片元素的内容，应为图片的路径或者 URL。
      */
-    image: GamePictureAssets;
+    image: GamePictureAssets | "";
     /**
      * 图片元素的透明度。
      */
@@ -805,22 +805,6 @@ declare class ClientMedia {
          * 音频声音增益
          */
         gain: number
-    }>): Promise<void>;
-
-    /**
-     * 停止播放音频
-     */
-    stopPlayAudio(): void;
-
-    /**
-     * 开始录音
-     * @returns 返回一个Promise，表示成功开始录音，反之则抛出错误
-     */
-    startRecording(): Promise<void>;
-
-    /**
-     * 停止录音
-    * @returns 返回一个Promise，解析为录音的Blob对象，
     }>): Promise<void>;
 
     /**

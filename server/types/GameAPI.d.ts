@@ -11139,7 +11139,7 @@ interface GameEntityConfig {
   /**
    * 实体的网格模型
    */
-  mesh: GameModelAssets;
+  mesh: GameModelAssets | "";
 
   /**
    * 实体的网格颜色
@@ -11344,7 +11344,7 @@ interface GameEntityKeyframe {
   // 实体是否受重力影响
   gravity: boolean;
   // 实体的网格模型
-  mesh: GameModelAssets;
+  mesh: GameModelAssets | "";
   // 实体的网格是否不可见
   meshInvisible: boolean;
   // 实体的网格缩放
@@ -11718,7 +11718,7 @@ declare class GameEntity implements GameEntityConfig {
    * 除非对象是玩家，否则如果设置了网格，则使用网格来计算对象的边界
    * @category mesh
    */
-  mesh: GameModelAssets;
+  mesh: GameModelAssets | "";
 
   /**
    * 使网格不可见
@@ -12350,7 +12350,7 @@ interface GameWearableSpec {
   // 身体部位，表示该可穿戴物品所对应的穿戴位置
   bodyPart: GameBodyPart;
   // 网格模型路径，用于指定该物品的3D模型
-  mesh: GameModelAssets;
+  mesh: GameModelAssets | "";
   // 颜色，表示该物品在游戏中的显示颜色
   color: GameRGBColor;
   // 发光强度，用于控制物品的自发光效果，使其在特定条件下更加显眼
@@ -12378,7 +12378,7 @@ declare class GameWearable implements GameWearableSpec {
   /**
    * 此可穿戴装备的网格模型
    */
-  mesh: GameModelAssets;
+  mesh: GameModelAssets | "";
   /**
    * 可穿戴装备的可选颜色调整
    */

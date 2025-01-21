@@ -27,8 +27,8 @@ export class CoHandlerClass {
                         let u = q.shift();
                         u?.children.forEach(v => {
                             const abs = relativeToAbsolute(u.entity.position, u.entity.meshOrientation, v.relativePosition, v.relativeQuaternion);
-                            v.entity.position = abs.position;
-                            v.entity.meshOrientation = abs.quaternion;
+                            v.entity.position.set(abs.position.get([0]), abs.position.get([1]), abs.position.get([2]));
+                            v.entity.meshOrientation.copy(abs.quaternion);
                             q.push(v);
                         });
                     }

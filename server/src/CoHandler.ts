@@ -12,22 +12,21 @@ export enum CoHandlerActiveStatus {
 }
 
 export class CoHandlerClass {
-    public CoEntities: CoEntity[] = [];
     private status: CoHandlerStatus = CoHandlerStatus.ACTIVE;
     private activeStatus: CoHandlerActiveStatus = CoHandlerActiveStatus.ACTIVE;
     private handler: GameEventHandlerToken;
 
     constructor() {
         this.handler = world.onTick(() => {
-            if (!this.CoEntities.length) this.handler.cancel();
-            this.CoEntities.forEach((e: CoEntity) => {
+            if (!CoEntity.CoEntities.length) this.handler.cancel();
+            CoEntity.CoEntities.forEach((e: CoEntity) => {
                 if (e.parent == null) {
                     let q = [e];
                     while (q[0]) {
                         let u = q.shift();
                         u?.children.forEach(v => {
                             const abs = relativeToAbsolute(u.entity.position, u.entity.meshOrientation, v.relativePosition, v.relativeQuaternion);
-                            v.entity.position.set(abs.position.get([0]), abs.position.get([1]), abs.position.get([2]));
+                            v.entity.position.set(abs.position.x, abs.position.y, abs.position.z);
                             v.entity.meshOrientation.copy(abs.quaternion);
                             q.push(v);
                         });

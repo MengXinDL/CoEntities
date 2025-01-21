@@ -107,7 +107,7 @@ export function relativeToAbsolute( // 计算子节点的绝对坐标及旋转
   cpos: GameVector3, // 子节点的相对坐标
   cqua: GameQuaternion, // 子节点的相对旋转
 ) {
-  var w = pqua.w, x = pqua.x, y = pqua.y, z = pqua.z;
+  var w = -pqua.w, x = -pqua.x, y = -pqua.y, z = -pqua.z;
   const M = math.matrix([
       [1 - 2 * (y * y + z * z), 2 * (x * y - w * z), 2 * (x * z + w * y)],
       [2 * (x * y + w * z), 1 - 2 * (x * x + z * z), 2 * (y * z - w * x)],
@@ -130,7 +130,7 @@ export function relativeToAbsolute( // 计算子节点的绝对坐标及旋转
   var NewQua = new GameQuaternion(qw, qx, qy, qz);
 
   return {
-      'position': Newpos,
+      'position': ppos.add(new GameVector3(Newpos.get([0]), Newpos.get([1]), Newpos.get([2]))),
       'quaternion': NewQua
   }
 }

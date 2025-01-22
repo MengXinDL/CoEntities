@@ -123,10 +123,10 @@ export function relativeToAbsolute( // 计算子节点的绝对坐标及旋转
   ]));
 
   var theta2 = Math.sqrt(NQ.get([0]) * NQ.get([0]) + NQ.get([1]) * NQ.get([1]) + NQ.get([2]) * NQ.get([2]));
-  var qw = Math.cos(theta * 0.5);
-  var qx = NQ.get([0]) * Math.sin(theta * 0.5) / theta2;
-  var qy = NQ.get([1]) * Math.sin(theta * 0.5) / theta2;
-  var qz = NQ.get([2]) * Math.sin(theta * 0.5) / theta2;
+  var qw = Math.cos(theta2 * 0.5);
+  var qx = NQ.get([0]) * Math.sin(theta2 * 0.5) / theta2;
+  var qy = NQ.get([1]) * Math.sin(theta2 * 0.5) / theta2;
+  var qz = NQ.get([2]) * Math.sin(theta2 * 0.5) / theta2;
   var NewQua = new GameQuaternion(qw, qx, qy, qz);
 
   return {

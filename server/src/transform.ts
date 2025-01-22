@@ -94,44 +94,33 @@ export function absoluteToRelative(
   const fMat = quaternionToMatrix(fQuater);
   const cMat = quaternionToMatrix(cQuater);
 
-  let rMat = matrixToQuaternion(math.divide(cMat, fMat) as math.Matrix);
+  let rQuater = matrixToQuaternion(math.divide(cMat, fMat) as math.Matrix);
   return {
-    rPos: xAxis.scale(rPos.x).add(yAxis.scale(rPos.y)).add(zAxis.scale(rPos.z)),
-    rMat
+    rPos: new GameVector3(
+      rPos.dot(xAxis),
+      rPos.dot(yAxis),
+      rPos.dot(zAxis)
+    ),
+    rQuater
   }
 }
 
-export function relativeToAbsolute( // 计算子节点的绝对坐标及旋转
-  ppos: GameVector3, // 父节点的绝对坐标
-  pqua: GameQuaternion, // 父节点的绝对旋转
-  cpos: GameVector3, // 子节点的相对坐标
-  cqua: GameQuaternion, // 子节点的相对旋转
-) {
-  var w = pqua.w, x = pqua.x, y = pqua.y, z = pqua.z;
-  const M = math.matrix([
-      [1 - 2 * (y * y + z * z), 2 * (x * y - w * z), 2 * (x * z + w * y)],
-      [2 * (x * y + w * z), 1 - 2 * (x * x + z * z), 2 * (y * z - w * x)],
-      [2 * (x * z - w * y), 2 * (y * z + w * x), 1 - 2 * (x * x + y * y)]
-  ]);
-  var Newpos = M.multiply(math.matrix([cpos.x, cpos.y, cpos.z]));
+export function relativeToAbsolute(
+  fQuater: GameQuaternion, fPos: GameVector3,
+  rQuater: GameQuaternion, rPos: GameVector3
+){
+  const xAxis = rotateVec(new GameVector3(1, 0, 0), fQuater);
+  const yAxis = rotateVec(new GameVector3(0, 1, 0), fQuater);
+  const zAxis = xAxis.cross(yAxis);
 
-  var theta = 2 * Math.acos(cqua.w);
-  var NQ = M.multiply(math.matrix([
-      cqua.x / Math.sin(theta * 0.5) * theta,
-      cqua.y / Math.sin(theta * 0.5) * theta,
-      cqua.z / Math.sin(theta * 0.5) * theta
-  ]));
+  const fMat = quaternionToMatrix(fQuater);
+  const rMat = quaternionToMatrix(rQuater);
 
-  var theta2 = Math.sqrt(NQ.get([0]) * NQ.get([0]) + NQ.get([1]) * NQ.get([1]) + NQ.get([2]) * NQ.get([2]));
-  var qw = Math.cos(theta * 0.5);
-  var qx = NQ.get([0]) * Math.sin(theta * 0.5) / theta2;
-  var qy = NQ.get([1]) * Math.sin(theta * 0.5) / theta2;
-  var qz = NQ.get([2]) * Math.sin(theta * 0.5) / theta2;
-  var NewQua = new GameQuaternion(qw, qx, qy, qz);
-
+  let cMat = math.multiply(rMat, fMat) as math.Matrix;
+  let cQuater = matrixToQuaternion(cMat);
+  let cPos = xAxis.scale(rPos.x).add(yAxis.scale(rPos.y)).add(zAxis.scale(rPos.z)).add(fPos);
   return {
-      'position': Newpos,
-      'quaternion': NewQua
+    cPos,
+    cQuater
   }
 }
-

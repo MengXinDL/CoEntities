@@ -32,7 +32,7 @@ function quaternionToMatrix(q: GameQuaternion): math.Matrix {
   ]);
 }
 
-function matrixToQuaternion(R: math.Matrix): [number, number, number, number] {
+function matrixToQuaternion(R: math.Matrix): GameQuaternion {
   const trace = R.get([0, 0]) + R.get([1, 1]) + R.get([2, 2]);
 
   if (trace > 0) {
@@ -41,7 +41,7 @@ function matrixToQuaternion(R: math.Matrix): [number, number, number, number] {
     const x = (R.get([2, 1]) - R.get([1, 2])) * s;
     const y = (R.get([0, 2]) - R.get([2, 0])) * s;
     const z = (R.get([1, 0]) - R.get([0, 1])) * s;
-    return [w, x, y, z];
+    return new GameQuaternion(w, x, y, z);
   } else {
     if (R.get([0, 0]) > R.get([1, 1]) && R.get([0, 0]) > R.get([2, 2])) {
       const s = 2.0 * Math.sqrt(1.0 + R.get([0, 0]) - R.get([1, 1]) - R.get([2, 2]));
@@ -49,21 +49,21 @@ function matrixToQuaternion(R: math.Matrix): [number, number, number, number] {
       const x = 0.25 * s;
       const y = (R.get([0, 1]) + R.get([1, 0])) / s;
       const z = (R.get([0, 2]) + R.get([2, 0])) / s;
-      return [w, x, y, z];
+      return new GameQuaternion(w, x, y, z);
     } else if (R.get([1, 1]) > R.get([2, 2])) {
       const s = 2.0 * Math.sqrt(1.0 + R.get([1, 1]) - R.get([0, 0]) - R.get([2, 2]));
       const w = (R.get([0, 2]) - R.get([2, 0])) / s;
       const x = (R.get([0, 1]) + R.get([1, 0])) / s;
       const y = 0.25 * s;
       const z = (R.get([1, 2]) + R.get([2, 1])) / s;
-      return [w, x, y, z];
+      return new GameQuaternion(w, x, y, z);
     } else {
       const s = 2.0 * Math.sqrt(1.0 + R.get([2, 2]) - R.get([0, 0]) - R.get([1, 1]));
       const w = (R.get([1, 0]) - R.get([0, 1])) / s;
       const x = (R.get([0, 2]) + R.get([2, 0])) / s;
       const y = (R.get([1, 2]) + R.get([2, 1])) / s;
       const z = 0.25 * s;
-      return [w, x, y, z];
+      return new GameQuaternion(w, x, y, z);
     }
   }
 }

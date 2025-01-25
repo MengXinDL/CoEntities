@@ -1,32 +1,32 @@
 {
-  "ArenaPro": {
-    "npmPackage": "server",
-    "file": {
-      "typescript": {
-        "server": {
-          "entry": "src/App.ts",
-          "development": true
+    "ArenaPro": {
+        "npmPackage": "server",
+        "file": {
+            "typescript": {
+                "server": {
+                    "entry": "src/App.ts",
+                    "development": true
+                },
+                "client": {
+                    "entry": "src/clientApp.ts",
+                    "development": true
+                },
+                "developmentAll": null,
+                "jsUpdate": true
+            }
         },
-        "client": {
-          "entry": "src/clientApp.ts",
-          "development": true
+        "map": {
+            "id": "100370031",
+            "editHash": "4de2ff15c463dbca6c97",
+            "playHash": "af6ce51964aec2dc90f9"
         },
-        "developmentAll": null,
-        "jsUpdate": true
-      }
-    },
-    "map": {
-      "id": "",
-      "editHash": "",
-      "playHash": ""
-    },
-    "outputAndUpdate": [
-      {
-        "name": "bundle.js",
-        "serverEntry": "src/App.ts",
-        "clientEntry": "src/clientApp.ts",
-        "description": "地图项目入口文件"
-      }
-    ]
-  }
+        "outputAndUpdate": [
+            {
+                "name": "bundle.js",
+                "serverEntry": "src/App.ts",
+                "clientEntry": "src/clientApp.ts",
+                "description": "地图项目入口文件"
+            }
+        ]
+    }
 }

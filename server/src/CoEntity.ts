@@ -1,12 +1,10 @@
 import { CoHandler, CoHandlerActiveStatus } from "./CoHandler";
-
+import { Coord } from "./Transform1";
 export class CoEntity {
     entity: GameEntity;
     parent: CoEntity | null = null;
     children: CoEntity[] = [];
-    relativePosition: GameVector3 = new GameVector3(0, 0, 0);
-    relativeQuaternion: GameQuaternion = new GameQuaternion(1, 0, 0, 0);
-
+    coord: Coord;
     static build(entity: GameEntity): CoEntity {
         if (CoHandler.getActiveStatus() == CoHandlerActiveStatus.RESTING) CoHandler.resume();
         let e = new Proxy(new CoEntity(entity), {
@@ -29,5 +27,6 @@ export class CoEntity {
 
     constructor(entity: GameEntity) {
         this.entity = entity;
+        this.coord = new Coord(new GameVector3(0, 0, 0), new GameVector3(0, 0, 0), this.entity.id + "'s Coord");
     }
 }

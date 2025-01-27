@@ -1,5 +1,4 @@
 import { CoEntity } from './CoEntity';
-import { relativeToAbsolute } from './transform';
 
 export enum CoHandlerStatus {
     "ACTIVE" = "active",
@@ -26,9 +25,8 @@ export class CoHandlerClass {
                     while (q[0]) {
                         let u = q.shift();
                         u?.children.forEach((v: CoEntity) => {
-                            const abs = relativeToAbsolute(u.entity.meshOrientation, u.entity.position, v.relativeQuaternion, v.relativePosition);
-                            v.entity.position = abs.cPos;
-                            v.entity.meshOrientation = abs.cQuater;
+                            v.entity.position = u.coord.AbsoluteOffset;
+                            v.entity.meshOrientation = u.coord.AbsoluteAngle;
                             q.push(v);
                         });
                     }
